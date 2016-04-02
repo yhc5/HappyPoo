@@ -97,5 +97,5 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
             timePickerDialog.show();
         }
     }
-    
+
 }

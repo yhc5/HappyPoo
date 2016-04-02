@@ -59,4 +59,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    public void openGraphs(View view){
+        Intent intent = new Intent(this, GraphsActivity.class);
+        startActivity(intent);
+    }
+
+
 }
