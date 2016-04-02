@@ -22,6 +22,8 @@
             android:name=".PoopingActivity"
             android:label="@string/title_activity_pooping" >
         </activity>
+        <activity android:name="MakeSessionActivity" >
+        </activity>
     </application>
 
 </manifest>
