@@ -53,8 +53,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openMakeSession(View view){
-        Intent intent = new Intent(this, MakeSessionActivity.class);
-        setContentView(R.layout.activity_make_session);
+        Intent intent = new Intent(this, GraphsActivity.class);
+        startActivity(intent);
     }
+
+    public void openGraphs(View view){
+        Intent intent = new Intent(this, GraphsActivity.class);
+        startActivity(intent);
+    }
+
 
 }
