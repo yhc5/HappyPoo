@@ -64,11 +64,13 @@
                 android:layout_weight="0.25"
                 android:text="Color: " />
 
-            <EditText
+            <Spinner
+                android:id="@+id/spinner_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
-                android:id="@+id/color_input" />
+                android:entries="@array/color_arrays" />
+
         </LinearLayout>
 
         <LinearLayout
