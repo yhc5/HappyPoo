@@ -41,8 +41,8 @@
         android:layout_height="wrap_content"
         android:text="temp button for graphs"
         android:id="@+id/temp_graphs_button"
-        android:layout_below="@+id/textView"
+        android:onClick="openGraphs"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="openGraphs" />
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
