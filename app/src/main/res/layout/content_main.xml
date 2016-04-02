@@ -22,4 +22,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="openMakeSession" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="temp button for graphs"
+        android:id="@+id/temp_graphs_button"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="openGraphs" />
 </RelativeLayout>
