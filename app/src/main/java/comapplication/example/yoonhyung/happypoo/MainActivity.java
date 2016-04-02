@@ -57,10 +57,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openPoopingSession(View view){
+        Intent intent = new Intent(this, PoopingActivity.class);
+        startActivity(intent);
+    }
+
     public void openGraphs(View view){
         Intent intent = new Intent(this, GraphsActivity.class);
         startActivity(intent);
     }
+
 
 
 }
