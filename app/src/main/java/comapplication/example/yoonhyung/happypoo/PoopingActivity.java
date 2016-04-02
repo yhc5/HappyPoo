@@ -38,7 +38,7 @@ public class PoopingActivity extends AppCompatActivity {
     }
 
     public boolean goToPooping (){
-        
+        return true;
     }
 
     @Override
