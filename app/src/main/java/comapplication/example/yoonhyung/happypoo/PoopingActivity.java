@@ -1,9 +1,11 @@
 package comapplication.example.yoonhyung.happypoo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,8 +38,6 @@ public class PoopingActivity extends Activity {
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(this));
-
-        //final MediaPlayer hotline = MediaPlayer.create(this, R.raw.hotlinebling);
 
 
         gridview.setOnItemClickListener(new OnItemClickListener() {
@@ -192,5 +192,11 @@ public class PoopingActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void openMakeSession(View view){
+        Log.d("myTag", "open make session clicked");
+        Intent intent = new Intent(this, MakeSessionActivity.class);
+        startActivity(intent);
     }
 }
