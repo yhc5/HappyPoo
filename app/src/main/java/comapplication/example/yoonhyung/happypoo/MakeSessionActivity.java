@@ -4,17 +4,24 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -26,6 +33,7 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
     private SimpleDateFormat dateFormatter;
     private DatePickerDialog datePickerDialog;
     private EditText timeET;
+    private EditText durationET;
     private TimePickerDialog timePickerDialog;
     private Calendar newCalendar;
     private Spinner spinnerColor;
@@ -33,6 +41,14 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
     private Spinner spinnerTexture;
     private Spinner spinnerAmount;
 
+    private String dateTime;
+    private int duration;
+    private int color;
+    private int texture;
+    private int amount;
+
+
+    private SessionDataRecorder dataRecorder = new SessionDataRecorder();
     private SpinnerMaker spinnerMaker = new SpinnerMaker();
 
     private static Integer[] textureImageDB = {R.drawable.texture_hardlumps,
@@ -54,7 +70,7 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
 
         // Record current time
         newCalendar = Calendar.getInstance();
-        dateFormatter = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
+        dateFormatter = new SimpleDateFormat("EEE MMM dd yyyy", Locale.US);
 
         //findViewsById stuff
         findViewsByIds();
@@ -62,9 +78,9 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
         //user input fields
         setDateField();
         setTimeField();
-        spinnerMaker.makeImageSpinner(spinnerColor, colorImageDB, this);
-        spinnerMaker.makeImageSpinner(spinnerTexture, textureImageDB, this);
-        spinnerMaker.makeTextSpinner(spinnerAmount, this);
+        setColorField();
+        setTextureField();
+        setAmountField();
     }
 
 
@@ -75,6 +91,9 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
 
         timeET = (EditText) findViewById(R.id.et_time);
         timeET.setInputType(InputType.TYPE_NULL);
+
+        durationET = (EditText) findViewById(R.id.et_duration);
+        durationET.setInputType(InputType.TYPE_CLASS_TEXT);
 
         spinnerColor = (Spinner) findViewById(R.id.spinner_color);
         spinnerTexture = (Spinner) findViewById(R.id.spinner_texture);
@@ -108,6 +127,85 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
     }
 
 
+    private void setColorField() {
+        SimpleImageArrayAdapter adapter = new SimpleImageArrayAdapter(this, colorImageDB);
+        spinnerColor.setAdapter(adapter);
+
+        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                color = position;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                color = 0; //default
+            }
+        };
+        spinnerColor.setOnItemSelectedListener(listener);
+    }
+
+
+    private void setTextureField() {
+        SimpleImageArrayAdapter adapter = new SimpleImageArrayAdapter(this, textureImageDB);
+        spinnerTexture.setAdapter(adapter);
+
+        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                texture = position;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                texture = 0; //default
+            }
+        };
+        spinnerTexture.setOnItemSelectedListener(listener);
+    }
+
+
+    private void setAmountField() {
+        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                amount = position;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                amount = 0; //default
+            }
+        };
+        spinnerAmount.setOnItemSelectedListener(listener);
+    }
+
+
+//    private void makeJSON() {
+//
+//        //do this in json maker
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(dateET.getText()); //"Mon Apr 02 1993" given by date
+//        sb.append(timeET.getText()); //"11:12" given by time
+//        sb.append(":00"); //default 00 seconds
+//        dateTime = sb.toString();
+//        //dateTime: sb.toString()
+//
+//
+//        int JSONduration = 0;
+//        String[] durSplit = durationET.getText().toString().split(":");
+//        int duration = Integer.valueOf(durSplit[0])*3600 + Integer.valueOf(durSplit[1])*60 + Integer.valueOf(durSplit[2]);
+//
+//
+//        //"duration": ? some int
+//
+//
+//        //"color": color
+//        //"texture": texture
+//        //"amount": amount
+//
+//    }
+
+
+
+
     @Override
     public void onClick(View view) {
         if (view == dateET) {
@@ -115,11 +213,68 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
         } else if (view == timeET) {
             timePickerDialog.show();
         } else if (view == submitButton) {
-            Log.d("myTag", "JSON dateTime: ");
-            Log.d("myTag", "JSON duration: ");
-            Log.d("myTag", "JSON color: ");
-            Log.d("myTag", "JSON texture: ");
-            Log.d("myTag", "JSON amount: ");
+//            Log.d("myTag", "date: " + dateET.getText());
+//            Log.d("myTag", "time: " + timeET.getText());
+//            Log.d("myTag", "duration: " + durationET.getText());
+//            Log.d("myTag", "color: " + String.valueOf(color));
+//            Log.d("myTag", "texture: " + String.valueOf(texture));
+//            Log.d("myTag", "amount: " + String.valueOf(amount));
+//            Log.d("myTag", "JSON dateTime: " + dateTime);
+
+            JSONMaker jsonMaker = new JSONMaker();
+            JSONObject json = jsonMaker.makeJSON(dateET.getText().toString(), timeET.getText().toString(), durationET.getText().toString(),
+                    color, texture, amount, getAssets());
+
+
+            String filename = "poolog.json";
+            FileOutputStream outputStream;
+            try {
+                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                outputStream.write(json.toString().getBytes());
+                outputStream.close();
+                Log.d("myTag", "done writing file");
+
+
+
+            } catch (Exception e) {
+                Log.d("myTag", "exception in make session activity");
+            }
+
+
+
+            //testing purpsoes:
+            try {
+                FileInputStream is = openFileInput(filename);
+
+                // Read the entire asset into a local byte buffer.
+                byte[] buffer = new byte[is.available()];
+                is.read(buffer);
+                is.close();
+                String text = new String(buffer);
+
+                try {
+                    JSONObject js = new JSONObject(text);
+                    JSONArray jsonArray = js.optJSONArray("sessions");
+
+                    for(int i = 0; i<jsonArray.length(); i++){
+                        JSONObject session = jsonArray.getJSONObject(i);
+                        Log.d("tag", session.optString("dateTime").toString());
+                        Log.d("tag", session.optString("duration").toString());
+                        Log.d("tag", session.optString("color").toString());
+                        Log.d("tag", session.optString("amount").toString());
+                        Log.d("tag", session.optString("duration").toString());
+
+                    }
+                } catch (org.json.JSONException e){
+                    Log.d("tag", "jsonexception here");
+                }
+
+
+            } catch (Exception e) {
+                Log.d("myTag", "file not found");
+            }
+
+
         }
     }
 }
