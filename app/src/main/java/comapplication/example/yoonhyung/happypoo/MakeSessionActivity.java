@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -13,13 +14,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -71,9 +71,14 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_make_session);
 
         // get recorded datetime and duration
-        Bundle bundle = getIntent().getExtras();
-        prepopDateTime = bundle.getString("pooDateTime");
-        prepopDuration = bundle.getString("pooDuration");
+        Bundle bundle;
+        try {
+            bundle = getIntent().getExtras();
+            prepopDateTime = bundle.getString("pooDateTime");
+            prepopDuration = bundle.getString("pooDuration");
+        } catch (Exception e) {
+            //nothing for now!
+        }
 
         // Record current time
         newCalendar = Calendar.getInstance();
@@ -92,12 +97,31 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
 
 
     private void findViewsByIds() {
+
+
+        LinearLayout mainSessionLayout = (LinearLayout) findViewById(R.id.main_session_layout);
+
+        if (prepopDateTime == null) {
+            dateET = (EditText) findViewById(R.id.et_date);
+            dateET.setInputType(InputType.TYPE_NULL);
+            mainSessionLayout.removeView(findViewById(R.id.et_prepop_date));
+
+        } else {
+            mainSessionLayout.removeView(findViewById(R.id.et_date));
+
+
+        }
+
         dateET = (EditText) findViewById(R.id.et_date);
         dateET.setInputType(InputType.TYPE_NULL);
+
         dateET.requestFocus();
 
         timeET = (EditText) findViewById(R.id.et_time);
         timeET.setInputType(InputType.TYPE_NULL);
+
+
+
 
         durationET = (EditText) findViewById(R.id.et_duration);
         durationET.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -123,6 +147,8 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
             },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
         } else {
             dateET.setHint(prepopDateTime);
+
+
         }
     }
 
@@ -230,39 +256,43 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
                 Log.d("myTag", "exception in make session activity");
             }
 
+            //and return to main, for now.
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
 
 
-            //testing purpsoes:
-            try {
-                FileInputStream is = openFileInput(filename);
 
-                // Read the entire asset into a local byte buffer.
-                byte[] buffer = new byte[is.available()];
-                is.read(buffer);
-                is.close();
-                String text = new String(buffer);
-
-                try {
-                    JSONObject js = new JSONObject(text);
-                    JSONArray jsonArray = js.optJSONArray("sessions");
-
-                    for(int i = 0; i<jsonArray.length(); i++){
-                        JSONObject session = jsonArray.getJSONObject(i);
-                        Log.d("tag", session.optString("dateTime").toString());
-                        Log.d("tag", session.optString("duration").toString());
-                        Log.d("tag", session.optString("color").toString());
-                        Log.d("tag", session.optString("amount").toString());
-                        Log.d("tag", session.optString("duration").toString());
-
-                    }
-                } catch (org.json.JSONException e){
-                    Log.d("tag", "jsonexception here");
-                }
-
-
-            } catch (Exception e) {
-                Log.d("myTag", "file not found");
-            }
+//            //testing purpsoes:
+//            try {
+//                FileInputStream is = openFileInput(filename);
+//
+//                // Read the entire asset into a local byte buffer.
+//                byte[] buffer = new byte[is.available()];
+//                is.read(buffer);
+//                is.close();
+//                String text = new String(buffer);
+//
+//                try {
+//                    JSONObject js = new JSONObject(text);
+//                    JSONArray jsonArray = js.optJSONArray("sessions");
+//
+//                    for(int i = 0; i<jsonArray.length(); i++){
+//                        JSONObject session = jsonArray.getJSONObject(i);
+//                        Log.d("tag", session.optString("dateTime").toString());
+//                        Log.d("tag", session.optString("duration").toString());
+//                        Log.d("tag", session.optString("color").toString());
+//                        Log.d("tag", session.optString("amount").toString());
+//                        Log.d("tag", session.optString("duration").toString());
+//
+//                    }
+//                } catch (org.json.JSONException e){
+//                    Log.d("tag", "jsonexception here");
+//                }
+//
+//
+//            } catch (Exception e) {
+//                Log.d("myTag", "file not found");
+//            }
 
 
         }

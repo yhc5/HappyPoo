@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="30dp"
+    android:id="@+id/main_session_layout"
     tools:context="comapplication.example.yoonhyung.happypoo.MakeSessionActivity">
 
 
@@ -25,8 +26,13 @@
             android:id="@+id/et_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".75"
-            android:hint="prepopulate date i guess" />
+            android:layout_weight=".75" />
+
+        <EditText
+            android:id="@+id/et_prepop_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".75" />
 
     </LinearLayout>
 
@@ -46,8 +52,7 @@
             android:id="@+id/et_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.75"
-            android:hint="prepopulate time i guess" />
+            android:layout_weight="0.75" />
     </LinearLayout>
 
     <LinearLayout
