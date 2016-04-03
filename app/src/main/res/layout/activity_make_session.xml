@@ -9,114 +9,134 @@
 
 
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="41dp"
-            android:orientation="horizontal" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="41dp"
+        android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/textView_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="Date: " />
-
-            <EditText
-                android:id="@+id/et_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight=".75"
-                android:hint="prepopulate date i guess" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/textView_date"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_weight="0.25"
+            android:text="Date: " />
 
-            <TextView
-                android:id="@+id/textView_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="Time: " />
-
-            <EditText
-                android:id="@+id/et_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.75"
-                android:hint="prepopulate time i guess" />
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <EditText
+            android:id="@+id/et_date"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_weight=".75"
+            android:hint="prepopulate date i guess" />
 
-            <TextView
-                android:id="@+id/textView_color"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="Color: " />
+    </LinearLayout>
 
-            <Spinner
-                android:id="@+id/spinner_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.75"
-                android:entries="@array/color_arrays" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/textView_time"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_weight="0.25"
+            android:text="Time: " />
 
-            <TextView
-                android:id="@+id/textView_texture"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="Texture: " />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/texture_input"
-                android:layout_weight="0.75" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <EditText
+            android:id="@+id/et_time"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_weight="0.75"
+            android:hint="prepopulate time i guess" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView_amount"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="Amount: " />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/amount_input"
-                android:layout_weight="0.75" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView_duration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="Duration: " />
+
+        <EditText
+            android:id="@+id/et_duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75"
+            android:hint="HH:mm:ss" />
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView_color"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="Color: " />
+
+        <Spinner
+            android:id="@+id/spinner_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView_texture"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="Texture: " />
+
+        <Spinner
+            android:id="@+id/spinner_texture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="Amount: " />
+
+        <Spinner
+            android:id="@+id/spinner_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75"
+            android:entries="@array/amount_arrays" />
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/make_session_submit"
-        android:layout_gravity="center_horizontal"
-        android:onClick="submitMakeSession" />
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
