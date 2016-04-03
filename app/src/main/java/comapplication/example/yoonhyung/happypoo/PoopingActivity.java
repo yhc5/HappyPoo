@@ -1,20 +1,22 @@
 package comapplication.example.yoonhyung.happypoo;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.Timer;
 
 
 public class PoopingActivity extends Activity {
@@ -31,10 +33,32 @@ public class PoopingActivity extends Activity {
     boolean eight_playing = false;
     boolean default_playing = false;
 
+    String pooDateTime;
+    String pooDuration;
+    Timer pooTimer;
+
+    long startTime = 0L;
+    long endTime = 0L;
+    long timeInMilliseconds = 0L;
+    long updatedTime = 0L;
+    //long timeSwapBuff = 0L;
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pooping);
+
+        //set date and time after starting.
+        Calendar newDate = Calendar.getInstance();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.US);
+        pooDateTime = dateFormatter.format(newDate.getTime());
+        startTime = SystemClock.uptimeMillis();
+
+
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(this));
@@ -196,7 +220,19 @@ public class PoopingActivity extends Activity {
 
     public void openMakeSession(View view){
         Log.d("myTag", "open make session clicked");
+        endTime = SystemClock.uptimeMillis();
+
+        timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
+        int secs = (int) (timeInMilliseconds / 1000);
+        int mins = secs / 60;
+        secs = secs % 60;
+
+        pooDuration = String.valueOf("00:")+ String.valueOf(mins) + ":" + String.valueOf(secs);
+        //settings hours to 00 for now
+
         Intent intent = new Intent(this, MakeSessionActivity.class);
+        intent.putExtra("sessionDate", pooDateTime);
+        intent.putExtra("sessionDuration", pooDuration);
         startActivity(intent);
     }
 }

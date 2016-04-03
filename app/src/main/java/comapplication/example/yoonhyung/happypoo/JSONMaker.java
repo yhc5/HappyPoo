@@ -14,6 +14,46 @@ import java.io.FileInputStream;
  */
 public class JSONMaker {
 
+    public JSONObject makeJSONPrepop(String dateTimePrepop, String durationPrepop, int color, int texture, int amount, Context context) {
+
+        JSONObject session = new JSONObject();
+        try {
+            session.put("dateTime", dateTimePrepop);
+            session.put("duration", durationPrepop);
+            session.put("color", color);
+            session.put("texture", texture);
+            session.put("amount", amount);
+        } catch (JSONException e) {
+            //dosomethinglater;
+            Log.d("myTag", "exception in createSession prepop");
+        }
+
+
+        JSONObject mainjo = null;
+
+        try {
+//            InputStream is = assets.open("poolog.json");
+            FileInputStream is = context.openFileInput("poolog.json");
+            int size = is.available();
+
+            // Read the entire asset into a local byte buffer.
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            String text = new String(buffer);
+            mainjo = new JSONObject(text);
+        } catch (Exception e) {
+            //somethinglater
+            Log.d("myTag", "exception in makeJSON");
+            //looks like we can never find the file.
+
+        }
+
+        JSONObject json = addSessionToMainJSON(session, mainjo);
+
+        return json;
+    }
+
     public JSONObject makeJSON(String date, String time, String duration, int color, int texture, int amount, Context context) {
         JSONObject session = createSession(date, time, duration, color, texture, amount);
         JSONObject mainjo = null;
