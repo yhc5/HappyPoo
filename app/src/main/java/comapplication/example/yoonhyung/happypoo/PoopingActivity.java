@@ -195,6 +195,7 @@ public class PoopingActivity extends Activity {
     }
 
     public void openMakeSession(View view){
+        stopPlaying();
         Log.d("myTag", "open make session clicked");
         Intent intent = new Intent(this, MakeSessionActivity.class);
         startActivity(intent);

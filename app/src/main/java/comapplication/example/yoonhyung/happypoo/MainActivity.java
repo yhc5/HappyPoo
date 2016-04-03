@@ -69,7 +69,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GraphsActivity.class);
         startActivity(intent);
     }
-
+    public void openOptions(View view){
+        Intent intent = new Intent(this, OptionsActivity.class);
+        startActivity(intent);
+    }
 
 
 }

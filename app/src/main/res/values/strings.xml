@@ -10,5 +10,6 @@
         <item>Medium</item>
         <item>Heavy</item>
     </string-array>
+    <string name="title_activity_options">OptionsActivity</string>
 
 </resources>

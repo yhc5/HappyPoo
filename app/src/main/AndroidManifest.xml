@@ -22,9 +22,13 @@
             android:name=".PoopingActivity"
             android:label="@string/title_activity_pooping" >
         </activity>
-        <activity android:name="MakeSessionActivity" >
+        <activity android:name=".MakeSessionActivity" >
         </activity>
-        <activity android:name="GraphsActivity" >
+        <activity android:name=".GraphsActivity" >
+        </activity>
+        <activity
+            android:name=".OptionsActivity"
+            android:label="@string/title_activity_options" >
         </activity>
     </application>
 
