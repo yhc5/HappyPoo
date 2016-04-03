@@ -48,7 +48,7 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
     private int amount;
 
 
-    private SessionDataRecorder dataRecorder = new SessionDataRecorder();
+    //private SessionDataRecorder dataRecorder = new SessionDataRecorder();
     private SpinnerMaker spinnerMaker = new SpinnerMaker();
 
     private static Integer[] textureImageDB = {R.drawable.texture_hardlumps,

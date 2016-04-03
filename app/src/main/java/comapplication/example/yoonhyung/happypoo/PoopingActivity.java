@@ -43,46 +43,107 @@ public class PoopingActivity extends Activity {
         gridview.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
+
                 switch(position){
-                    case 0: stopPlaying();
-                            if(!zero_playing) {
+                    case 0: if (zero_playing){
+                                zero_playing = false;
+                                stopPlaying();
+                            }
+                            else {
+                                stopPlaying();
                                 mp = MediaPlayer.create(PoopingActivity.this, R.raw.hotlinebling);
                                 mp.start();
                                 zero_playing = true;
                             }
                             break;
-                    case 1: stopPlaying();
-                            mp = MediaPlayer.create(PoopingActivity.this, R.raw.cafe1930);
-                            mp.start();
+                    case 1: if (one_playing){
+                                one_playing = false;
+                                stopPlaying();
+                            }
+                            else {
+                                stopPlaying();
+                                mp = MediaPlayer.create(PoopingActivity.this, R.raw.cafe1930);
+                                mp.start();
+                                one_playing = true;
+                            }
                             break;
-                    case 3: stopPlaying();
+                    case 2:
+                        if (two_playing) {
+                            two_playing = false;
+                            stopPlaying();
+                        } else {
+                            stopPlaying();
                             mp = MediaPlayer.create(PoopingActivity.this, R.raw.lavalsedamelie);
                             mp.start();
-                            break;
-                    case 4: stopPlaying();
+                            two_playing = true;
+                        }
+                        break;
+                    case 3:
+                        if (three_playing) {
+                            three_playing = false;
+                            stopPlaying();
+                        } else {
+                            stopPlaying();
                             mp = MediaPlayer.create(PoopingActivity.this, R.raw.meditation);
                             mp.start();
-                            break;
-                    case 5: stopPlaying();
+                            three_playing = true;
+                        }
+                        break;
+                    case 4:
+                        if (four_playing) {
+                            four_playing = false;
+                            stopPlaying();
+                        } else {
+                            stopPlaying();
                             mp = MediaPlayer.create(PoopingActivity.this, R.raw.yanntiersen);
                             mp.start();
-                            break;
-                    case 6: stopPlaying();
-                            mp = MediaPlayer.create(PoopingActivity.this, R.raw.pushit);
-                            mp.start();
-                            break;
-                    case 7: stopPlaying();
+                            four_playing = true;
+                        }
+                        break;
+                    case 5:
+                        if (five_playing) {
+                            five_playing = false;
+                            stopPlaying();
+                        } else {
+                            stopPlaying();
                             mp = MediaPlayer.create(PoopingActivity.this, R.raw.letitgo);
                             mp.start();
-                            break;
-                    case 8: stopPlaying();
+                            five_playing = true;
+                        }
+                        break;
+                    case 6:
+                        if (six_playing) {
+                            six_playing = false;
+                            stopPlaying();
+                        } else {
+                            stopPlaying();
+                            mp = MediaPlayer.create(PoopingActivity.this, R.raw.pushit);
+                            mp.start();
+                            six_playing = true;
+                        }
+                        break;
+                    case 7:
+                        if (seven_playing) {
+                            seven_playing = false;
+                            stopPlaying();
+                        } else {
+                            stopPlaying();
                             mp = MediaPlayer.create(PoopingActivity.this, R.raw.dropitlikeitshot);
                             mp.start();
-                            break;
-                    default: stopPlaying();
+                            seven_playing = true;
+                        }
+                        break;
+                    case 8:
+                        if (eight_playing) {
+                            eight_playing = false;
+                            stopPlaying();
+                        } else {
+                            stopPlaying();
                             mp = MediaPlayer.create(PoopingActivity.this, R.raw.eyeofthetiger);
                             mp.start();
-                            break;
+                            eight_playing = true;
+                        }
+                        break;
                 }
 
             }
@@ -90,6 +151,17 @@ public class PoopingActivity extends Activity {
     }
 
     private void stopPlaying() {
+        zero_playing = false;
+        one_playing = false;
+        two_playing = false;
+        three_playing = false;
+        four_playing = false;
+        five_playing = false;
+        six_playing = false;
+        seven_playing = false;
+        eight_playing = false;
+        default_playing = false;
+
         if (mp != null) {
             mp.stop();
             mp.release();
