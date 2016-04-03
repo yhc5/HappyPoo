@@ -223,7 +223,7 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
 
             JSONMaker jsonMaker = new JSONMaker();
             JSONObject json = jsonMaker.makeJSON(dateET.getText().toString(), timeET.getText().toString(), durationET.getText().toString(),
-                    color, texture, amount, getAssets());
+                    color, texture, amount, this);
 
 
             String filename = "poolog.json";
