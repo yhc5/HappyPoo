@@ -9,9 +9,13 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,6 +30,8 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
     private EditText timeET;
     private TimePickerDialog timePickerDialog;
     private Calendar newCalendar;
+    private Spinner spinnerColor;
+    private Button submitButton;
 
     static final int DATE_DIALOG_ID = 999;
 
@@ -58,6 +64,10 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
         setTimeField();
 
 
+        // COLOR
+        setColorField();
+
+
     }
 
     private void setDateField() {
@@ -87,6 +97,31 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), false);
     }
 
+    private void setColorField() {
+        spinnerColor = (Spinner) findViewById(R.id.spinner_color);
+//        spinnerColor.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+
+        AdapterView.OnItemSelectedListener colorListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                //for testing:
+                Toast.makeText(parent.getContext(),
+                        "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //do nothing? ...or set default value.
+            }
+        };
+
+        spinnerColor.setOnItemSelectedListener(colorListener);
+
+    }
+
+
 
     @Override
     public void onClick(View view) {
@@ -97,5 +132,28 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
             timePickerDialog.show();
         }
     }
+
+
+    public void submitMakeSession() {
+
+        spinnerColor = (Spinner) findViewById(R.id.spinner_color);
+        submitButton = (Button) findViewById(R.id.make_session_submit);
+
+        submitButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(this,
+//                        "OnClickListener : " +
+//                                "\nSpinner 1 : " + String.valueOf(spinner1.getSelectedItem()) +
+//                                "\nSpinner 2 : " + String.valueOf(spinner2.getSelectedItem()),
+//                        Toast.LENGTH_SHORT).show();
+
+
+            }
+
+        });
+    }
+
 
 }
