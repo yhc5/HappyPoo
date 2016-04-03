@@ -18,6 +18,16 @@ import android.widget.GridView;
 public class PoopingActivity extends Activity {
 
     MediaPlayer mp;
+    boolean zero_playing = false;
+    boolean one_playing = false;
+    boolean two_playing = false;
+    boolean three_playing = false;
+    boolean four_playing = false;
+    boolean five_playing = false;
+    boolean six_playing = false;
+    boolean seven_playing = false;
+    boolean eight_playing = false;
+    boolean default_playing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +45,11 @@ public class PoopingActivity extends Activity {
                                     int position, long id) {
                 switch(position){
                     case 0: stopPlaying();
-                            mp = MediaPlayer.create(PoopingActivity.this, R.raw.hotlinebling);
-                            mp.start();
+                            if(!zero_playing) {
+                                mp = MediaPlayer.create(PoopingActivity.this, R.raw.hotlinebling);
+                                mp.start();
+                                zero_playing = true;
+                            }
                             break;
                     case 1: stopPlaying();
                             mp = MediaPlayer.create(PoopingActivity.this, R.raw.cafe1930);
@@ -66,7 +79,7 @@ public class PoopingActivity extends Activity {
                             mp = MediaPlayer.create(PoopingActivity.this, R.raw.dropitlikeitshot);
                             mp.start();
                             break;
-                    case 9: stopPlaying();
+                    default: stopPlaying();
                             mp = MediaPlayer.create(PoopingActivity.this, R.raw.eyeofthetiger);
                             mp.start();
                             break;
