@@ -2,7 +2,6 @@ package comapplication.example.yoonhyung.happypoo;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -47,6 +46,9 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
     private int texture;
     private int amount;
 
+    String prepopDateTime;
+    String prepopDuration;
+
 
     //private SessionDataRecorder dataRecorder = new SessionDataRecorder();
     private SpinnerMaker spinnerMaker = new SpinnerMaker();
@@ -67,6 +69,11 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_session);
+
+        // get recorded datetime and duration
+        Bundle bundle = getIntent().getExtras();
+        prepopDateTime = bundle.getString("pooDateTime");
+        prepopDuration = bundle.getString("pooDuration");
 
         // Record current time
         newCalendar = Calendar.getInstance();
@@ -105,27 +112,34 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
 
 
     private void setDateField() {
-        dateET.setOnClickListener(this);
-        datePickerDialog = new DatePickerDialog(this, new OnDateSetListener() {
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                dateET.setText(dateFormatter.format(newDate.getTime()));
-            }
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        if (prepopDateTime == null) {
+            dateET.setOnClickListener(this);
+            datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    Calendar newDate = Calendar.getInstance();
+                    newDate.set(year, monthOfYear, dayOfMonth);
+                    dateET.setText(dateFormatter.format(newDate.getTime()));
+                }
+            },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        } else {
+            dateET.setHint(prepopDateTime);
+        }
     }
 
 
     private void setTimeField() {
-        timeET.setOnClickListener(this);
-        timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                timeET.setText(hourOfDay + ":" + minute);
-            }
-        }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), false);
+        if (prepopDuration == null) {
+            timeET.setOnClickListener(this);
+            timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    timeET.setText(hourOfDay + ":" + minute);
+                }
+            }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), false);
+        } else {
+            dateET.setHint(prepopDuration);
+        }
     }
-
 
     private void setColorField() {
         SimpleImageArrayAdapter adapter = new SimpleImageArrayAdapter(this, colorImageDB);
@@ -178,32 +192,6 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
     }
 
 
-//    private void makeJSON() {
-//
-//        //do this in json maker
-//        StringBuilder sb = new StringBuilder();
-//        sb.append(dateET.getText()); //"Mon Apr 02 1993" given by date
-//        sb.append(timeET.getText()); //"11:12" given by time
-//        sb.append(":00"); //default 00 seconds
-//        dateTime = sb.toString();
-//        //dateTime: sb.toString()
-//
-//
-//        int JSONduration = 0;
-//        String[] durSplit = durationET.getText().toString().split(":");
-//        int duration = Integer.valueOf(durSplit[0])*3600 + Integer.valueOf(durSplit[1])*60 + Integer.valueOf(durSplit[2]);
-//
-//
-//        //"duration": ? some int
-//
-//
-//        //"color": color
-//        //"texture": texture
-//        //"amount": amount
-//
-//    }
-
-
 
 
     @Override
@@ -213,17 +201,19 @@ public class MakeSessionActivity extends Activity implements OnClickListener {
         } else if (view == timeET) {
             timePickerDialog.show();
         } else if (view == submitButton) {
-//            Log.d("myTag", "date: " + dateET.getText());
-//            Log.d("myTag", "time: " + timeET.getText());
-//            Log.d("myTag", "duration: " + durationET.getText());
-//            Log.d("myTag", "color: " + String.valueOf(color));
-//            Log.d("myTag", "texture: " + String.valueOf(texture));
-//            Log.d("myTag", "amount: " + String.valueOf(amount));
-//            Log.d("myTag", "JSON dateTime: " + dateTime);
 
             JSONMaker jsonMaker = new JSONMaker();
-            JSONObject json = jsonMaker.makeJSON(dateET.getText().toString(), timeET.getText().toString(), durationET.getText().toString(),
-                    color, texture, amount, getAssets());
+            JSONObject json;
+
+            if (prepopDuration == null || prepopDateTime == null) {
+                json = jsonMaker.makeJSON(dateET.getText().toString(), timeET.getText().toString(), durationET.getText().toString(),
+                        color, texture, amount, this);
+                Log.d("myTag", "making prepop json");
+            } else {
+                json = jsonMaker.makeJSON(prepopDateTime, prepopDuration, durationET.getText().toString(),
+                        color, texture, amount, this);
+                Log.d("myTag", "making regular json");
+            }
 
 
             String filename = "poolog.json";
