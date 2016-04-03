@@ -13,7 +13,12 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
+
+
 public class PoopingActivity extends Activity {
+
+    MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,14 +27,61 @@ public class PoopingActivity extends Activity {
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(this));
 
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.hotlinebling);
+        //final MediaPlayer hotline = MediaPlayer.create(this, R.raw.hotlinebling);
+
 
         gridview.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                mp.start();
+                switch(position){
+                    case 0: stopPlaying();
+                            mp = MediaPlayer.create(PoopingActivity.this, R.raw.hotlinebling);
+                            mp.start();
+                            break;
+                    case 1: stopPlaying();
+                            mp = MediaPlayer.create(PoopingActivity.this, R.raw.cafe1930);
+                            mp.start();
+                            break;
+                    case 3: stopPlaying();
+                            mp = MediaPlayer.create(PoopingActivity.this, R.raw.lavalsedamelie);
+                            mp.start();
+                            break;
+                    case 4: stopPlaying();
+                            mp = MediaPlayer.create(PoopingActivity.this, R.raw.meditation);
+                            mp.start();
+                            break;
+                    case 5: stopPlaying();
+                            mp = MediaPlayer.create(PoopingActivity.this, R.raw.yanntiersen);
+                            mp.start();
+                            break;
+                    case 6: stopPlaying();
+                            mp = MediaPlayer.create(PoopingActivity.this, R.raw.pushit);
+                            mp.start();
+                            break;
+                    case 7: stopPlaying();
+                            mp = MediaPlayer.create(PoopingActivity.this, R.raw.letitgo);
+                            mp.start();
+                            break;
+                    case 8: stopPlaying();
+                            mp = MediaPlayer.create(PoopingActivity.this, R.raw.dropitlikeitshot);
+                            mp.start();
+                            break;
+                    case 9: stopPlaying();
+                            mp = MediaPlayer.create(PoopingActivity.this, R.raw.eyeofthetiger);
+                            mp.start();
+                            break;
+                }
+
             }
         });
+    }
+
+    private void stopPlaying() {
+        if (mp != null) {
+            mp.stop();
+            mp.release();
+            mp = null;
+        }
     }
 
     @Override
