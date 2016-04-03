@@ -5,16 +5,10 @@
 
     <string name="hello_world">Hello world!</string>
 
-    <string-array name="color_arrays">
-        <item>Brown</item>
-        <item>Green</item>
-        <item>Yellow</item>
-        <item>Black</item>
-        <item>White</item>
-        <item>Red</item>
+    <string-array name="amount_arrays">
+        <item>Light</item>
+        <item>Medium</item>
+        <item>Heavy</item>
     </string-array>
-
-
-
 
 </resources>

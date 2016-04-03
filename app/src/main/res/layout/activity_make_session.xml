@@ -68,8 +68,7 @@
                 android:id="@+id/spinner_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.75"
-                android:entries="@array/color_arrays" />
+                android:layout_weight="0.75" />
 
         </LinearLayout>
 
@@ -85,10 +84,10 @@
                 android:layout_weight="0.25"
                 android:text="Texture: " />
 
-            <EditText
+            <Spinner
+                android:id="@+id/spinner_texture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/texture_input"
                 android:layout_weight="0.75" />
         </LinearLayout>
 
@@ -104,11 +103,14 @@
                 android:layout_weight="0.25"
                 android:text="Amount: " />
 
-            <EditText
+            <Spinner
+                android:id="@+id/spinner_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/amount_input"
-                android:layout_weight="0.75" />
+                android:layout_weight="0.75"
+                android:entries="@array/amount_arrays" />
+
+
         </LinearLayout>
 
     <Button
@@ -116,7 +118,6 @@
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/make_session_submit"
-        android:layout_gravity="center_horizontal"
-        android:onClick="submitMakeSession" />
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
